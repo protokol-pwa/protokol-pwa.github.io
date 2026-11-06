@@ -36,3 +36,8 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # Сайт весит 37 МБ в 300 файлах, и GitHub переносит их к себе
+          # дольше, чем отведённые по умолчанию десять минут: выкладка
+          # срывалась на полпути с «Timeout reached».
+          timeout: 1800000
