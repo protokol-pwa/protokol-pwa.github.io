@@ -34,6 +34,12 @@ jobs:
           mkdir -p _site
           rsync -a --exclude '.git' --exclude '.github' --exclude '_site' ./ _site/
       - uses: actions/upload-pages-artifact@v3
+      # GitHub не успевает показать только что загруженный артефакт:
+      # 25 ноября deploy-pages дважды подряд спросил список через треть
+      # секунды после «successfully uploaded» и получил ноль, а выкладка
+      # упала. Со стороны это выглядит как «зеркало ещё едет», и заметить
+      # подмену трудно. Пауза дешевле, чем упавший основной адрес.
+      - run: sleep 20
       - id: deployment
         uses: actions/deploy-pages@v4
         with:
